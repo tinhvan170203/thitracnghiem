@@ -1,4 +1,4 @@
-const Users = require("../models/user");
+const Users = require("../models/User");
 
 let checkRole = (role) => {
     return async(req, res, next) => {
