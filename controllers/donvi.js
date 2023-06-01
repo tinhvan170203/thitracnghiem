@@ -30,8 +30,8 @@ module.exports = {
         .status(401)
         .json({
           status: "failed",
-          message: "Có lỗi xảy ra khi lấy dữ liệu đơn vị",
-          // message: error.message,
+          // message: "Có lỗi xảy ra khi lấy dữ liệu đơn vị",
+          message: error.message,
         });
     }
   },
