@@ -1,0 +1,1 @@
+import{W as t}from"./index-3d1a5215.js";const r=t.create({baseURL:"http://localhost:4000/",headers:{},withCredentials:!0});r.interceptors.request.use(function(e){return e},function(e){return Promise.reject(e)});r.interceptors.response.use(function(e){return e},function(e){return Promise.reject(e)});export{r as a};
