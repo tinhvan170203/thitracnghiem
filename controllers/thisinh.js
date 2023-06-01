@@ -10,8 +10,8 @@ module.exports = {
     let id = req.params.id; // id cuộc thi
     try {
       let items = await Danhsachthisinhs.find({
-        hoten: { $regex: hoten, $options: "$i" }, 
-        donviString: { $regex: donvi, $options: "$i" }, 
+        hoten: { $regex: hoten, $options: "i" }, 
+        donviString: { $regex: donvi, $options: "i" }, 
         cuocthi: id
       }).sort({hoten: 1}).populate('donvi')
 
@@ -43,8 +43,8 @@ module.exports = {
       await newItem.save();
 
       let items = await Danhsachthisinhs.find({
-        hoten: { $regex: hotenParam, $options: "$i" }, 
-        donviString: { $regex: donviParam, $options: "$i" }, 
+        hoten: { $regex: hotenParam, $options: "i" }, 
+        donviString: { $regex: donviParam, $options: "i" }, 
         cuocthi: id
       }).sort({hoten: 1}).populate('donvi')
 
@@ -76,8 +76,8 @@ module.exports = {
       });
 
       let items = await Danhsachthisinhs.find({
-        hoten: { $regex: hotenParam, $options: "$i" }, 
-        donviString: { $regex: donviParam, $options: "$i" }, 
+        hoten: { $regex: hotenParam, $options: "i" }, 
+        donviString: { $regex: donviParam, $options: "i" }, 
         cuocthi: id
       }).sort({hoten: 1}).populate('donvi')
 
@@ -105,8 +105,8 @@ module.exports = {
       await Danhsachthisinhs.findByIdAndDelete(id1);
       
       let items = await Danhsachthisinhs.find({
-        hoten: { $regex: hoten, $options: "$i" }, 
-        donviString: { $regex: donvi, $options: "$i" }, 
+        hoten: { $regex: hoten, $options: "i" }, 
+        donviString: { $regex: donvi, $options: "i" }, 
         cuocthi: id
       }).sort({hoten: 1}).populate('donvi')
       res.status(200).json({ message: "Xóa thành công", items });

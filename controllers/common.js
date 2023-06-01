@@ -45,7 +45,7 @@ module.exports = {
   //   try {
   //     const {donvi} = req.query;
   //     // console.log(donvi)
-  //     let dois = await Dois.find({donviString:  {$regex: donvi, $options: "$i" }}).sort({thutu: 1});
+  //     let dois = await Dois.find({donviString:  {$regex: donvi, $options: "i" }}).sort({thutu: 1});
   //     res.status(200).json({dois})
   //   } catch (error) {
   //     console.log("lỗi: ", error.message);
