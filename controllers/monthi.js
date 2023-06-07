@@ -13,16 +13,16 @@ module.exports = {
 
     try {
       let donvisDb = await Monthis.find({
-        mota: { $regex: mota, $options: "i" },
-        tenmonthi: { $regex: tenmonthi, $options: "i" },
+        mota: { $regex: mota, $options: "$i" },
+        tenmonthi: { $regex: tenmonthi, $options: "$i" },
       }).sort({ thutu: 1 });
 
       let tongbanghi = donvisDb.length;
       let total = Math.ceil(donvisDb.length / perPage);
 
       let donvis = await Monthis.find({
-        mota: { $regex: mota, $options: "i" },
-        tenmonthi: { $regex: tenmonthi, $options: "i" },
+        mota: { $regex: mota, $options: "$i" },
+        tenmonthi: { $regex: tenmonthi, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -55,21 +55,21 @@ module.exports = {
       await newItem.save();
 
       let donvisDb = await Monthis.find({
-        mota: { $regex: motaParam, $options: "i" },
-        tenmonthi: { $regex: tenmonthiParam, $options: "i" },
+        mota: { $regex: motaParam, $options: "$i" },
+        tenmonthi: { $regex: tenmonthiParam, $options: "$i" },
       }).sort({ thutu: 1 });
 
       //   let banghi = await Monthis.find({
-      //     mota: { $regex: mota, $options: "i" },
-      //     tenmonthi: { $regex: tenmonthi, $options: "i" }
+      //     mota: { $regex: mota, $options: "$i" },
+      //     tenmonthi: { $regex: tenmonthi, $options: "$i" }
       //   });
 
       let tongbanghi = donvisDb.length;
       let total = Math.ceil(donvisDb.length / perPage);
 
       let donvis = await Monthis.find({
-        mota: { $regex: motaParam, $options: "i" },
-        tenmonthi: { $regex: tenmonthiParam, $options: "i" },
+        mota: { $regex: motaParam, $options: "$i" },
+        tenmonthi: { $regex: tenmonthiParam, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -128,16 +128,16 @@ module.exports = {
       await Monthis.findByIdAndDelete(id);
 
       let donvisDb = await Monthis.find({
-        mota: { $regex: mota, $options: "i" },
-        tenmonthi: { $regex: tenmonthi, $options: "i" },
+        mota: { $regex: mota, $options: "$i" },
+        tenmonthi: { $regex: tenmonthi, $options: "$i" },
       }).sort({ thutu: 1 });
 
       let tongbanghi = donvisDb.length;
 
       let total = Math.ceil(donvisDb.length / perPage);
       let donvis = await Monthis.find({
-        mota: { $regex: mota, $options: "i" },
-        tenmonthi: { $regex: tenmonthi, $options: "i" },
+        mota: { $regex: mota, $options: "$i" },
+        tenmonthi: { $regex: tenmonthi, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -174,8 +174,8 @@ module.exports = {
         thutu: Number(thutu),
       });
       let donvis = await Monthis.find({
-        mota: { $regex: motaParam, $options: "i" },
-        tenmonthi: { $regex: tenmonthiParam, $options: "i" },
+        mota: { $regex: motaParam, $options: "$i" },
+        tenmonthi: { $regex: tenmonthiParam, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -247,7 +247,7 @@ module.exports = {
       await newItem.save();
 
       let items = await Cuocthis.find({
-        tencuocthi: { $regex: tencuocthiParam, $options: "i" },
+        tencuocthi: { $regex: tencuocthiParam, $options: "$i" },
         monthi
       }).sort({createdAt: -1})
 
@@ -270,7 +270,7 @@ module.exports = {
     // console.log(tencuocthi)
     try {
       let items = await Cuocthis.find({
-        tencuocthi: { $regex: tencuocthi, $options: "i" }, 
+        tencuocthi: { $regex: tencuocthi, $options: "$i" }, 
         monthi: id
       }).sort({createdAt: -1})
 
@@ -304,7 +304,7 @@ module.exports = {
       // });
 
       let items = await Cuocthis.find({
-        tencuocthi: { $regex: tencuocthiParam, $options: "i" }, 
+        tencuocthi: { $regex: tencuocthiParam, $options: "$i" }, 
         monthi: id
       }).sort({createdAt: -1})
 
@@ -334,7 +334,7 @@ module.exports = {
         });
 
         let items = await Cuocthis.find({
-          tencuocthi: { $regex: tencuocthiParam, $options: "i" }, 
+          tencuocthi: { $regex: tencuocthiParam, $options: "$i" }, 
           monthi: id
         }).sort({createdAt: -1})
   
@@ -370,7 +370,7 @@ module.exports = {
       await Cuocthis.findByIdAndDelete(id1);
 
       let items = await Cuocthis.find({
-        tencuocthi: { $regex: tencuocthi, $options: "i" }, 
+        tencuocthi: { $regex: tencuocthi, $options: "$i" }, 
         monthi: id
       }).sort({createdAt: -1})
       res.status(200).json({message: "Xóa cuộc thi thành công", items})
@@ -400,6 +400,7 @@ module.exports = {
         let list_baithiCompare = [];
         for(baithi of list_baithi){
           // lấy ra bài thi có kết quả tốt nhất trong tất cả các bài thi
+          
           let socaudung = 0;
           baithi.questions.forEach(question=>{
             if(question.question.answer === question.choice){
@@ -415,7 +416,10 @@ module.exports = {
             socaudung})
         };
         //lấy ra bài thi có 
-        let baithi_of_maxcaudung = list_baithiCompare.reduce((prev, current) => (prev.socaudung > current.socaudung) ? prev : current);
+        let baithi_of_maxcaudung = {};
+        if(list_baithiCompare.length > 0){
+          baithi_of_maxcaudung = list_baithiCompare.reduce((prev, current) => (prev.socaudung > current.socaudung) ? prev : current);
+        }
         data.push({thisinh: thisinh,baithi: baithi_of_maxcaudung, solanthi: list_baithi.length})
       };
       //sắp xếp các thí sinh theo thứ tự câu trả lời đúng từ cao xuống thấp

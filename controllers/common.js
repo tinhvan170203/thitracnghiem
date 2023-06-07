@@ -1,8 +1,8 @@
-// const BacHams = require("../models/Bacham");
+const BacHams = require("../models/Bacham");
 const Donvis = require("../models/Donvi");
-// const Chucvus = require("../models/Chucvu");
-// const Hesoluongs = require("../models/Hesoluong");
-// const Dois = require("../models/Doi");
+const Chucvus = require("../models/Chucvu");
+const Hesoluongs = require("../models/Hesoluong");
+const Dois = require("../models/Doi");
 const Monthis = require("../models/Monthi");
 const Cuocthis = require("../models/Cuocthi");
 const Danhsachthisinhs = require("../models/DanhSachThiSinh");
@@ -22,88 +22,88 @@ module.exports = {
       });
     }
   },
-  // getDataForAddCanbo: async (req, res) => {
-  //   try {
-  //     let capbac = await BacHams.find().sort({thutu: 1});
-  //     let chucvu = await Chucvus.find().sort({thutu: 1});
-  //     let hesoluong = await Hesoluongs.find().sort({thutu: 1});
-  //     let quantrinhomdonvi = req.user.quantrinhomdonvi.map(i=> i._id.toString());
-  //     let donvis = await Donvis.find({
-  //       _id: {$in: quantrinhomdonvi},
-  //     }).sort({ thutu: 1 });
-  //     res.status(200).json({capbac,chucvu,hesoluong,donvis})
-  //   } catch (error) {
-  //     console.log("lỗi: ", error.message);
-  //     res.status(401).json({
-  //       status: "failed",
-  //       message: "Có lỗi xảy ra khi lấy dữ liệu cấp bậc, chức vụ, hệ số lương, đơn vị.... Vui lòng liên hệ quản trị viên",
-  //     });
-  //   }
-  // },
+  getDataForAddCanbo: async (req, res) => {
+    try {
+      let capbac = await BacHams.find().sort({thutu: 1});
+      let chucvu = await Chucvus.find().sort({thutu: 1});
+      let hesoluong = await Hesoluongs.find().sort({thutu: 1});
+      let quantrinhomdonvi = req.user.quantrinhomdonvi.map(i=> i._id.toString());
+      let donvis = await Donvis.find({
+        _id: {$in: quantrinhomdonvi},
+      }).sort({ thutu: 1 });
+      res.status(200).json({capbac,chucvu,hesoluong,donvis})
+    } catch (error) {
+      console.log("lỗi: ", error.message);
+      res.status(401).json({
+        status: "failed",
+        message: "Có lỗi xảy ra khi lấy dữ liệu cấp bậc, chức vụ, hệ số lương, đơn vị.... Vui lòng liên hệ quản trị viên",
+      });
+    }
+  },
 
-  // getDoiWhenDonviChange: async(req, res) => {
-  //   try {
-  //     const {donvi} = req.query;
-  //     // console.log(donvi)
-  //     let dois = await Dois.find({donviString:  {$regex: donvi, $options: "i" }}).sort({thutu: 1});
-  //     res.status(200).json({dois})
-  //   } catch (error) {
-  //     console.log("lỗi: ", error.message);
-  //     res.status(401).json({
-  //       status: "failed",
-  //       message: "Có lỗi xảy ra khi lấy dữ liệu đội để thêm cán bộ.... Vui lòng liên hệ quản trị viên",
-  //     });
-  //   }
-  // },
+  getDoiWhenDonviChange: async(req, res) => {
+    try {
+      const {donvi} = req.query;
+      // console.log(donvi)
+      let dois = await Dois.find({donviString:  {$regex: donvi, $options: "$i" }}).sort({thutu: 1});
+      res.status(200).json({dois})
+    } catch (error) {
+      console.log("lỗi: ", error.message);
+      res.status(401).json({
+        status: "failed",
+        message: "Có lỗi xảy ra khi lấy dữ liệu đội để thêm cán bộ.... Vui lòng liên hệ quản trị viên",
+      });
+    }
+  },
 
-  // getBacHam:  async (req, res) => {
-  //   try {
-  //     let data = await BacHams.find().sort({thutu: 1});
-  //     res.status(200).json(data)
-  //   } catch (error) {
-  //     console.log("lỗi: ", error.message);
-  //     res.status(401).json({
-  //       status: "failed",
-  //       message: "Có lỗi xảy ra khi lấy dữ liệu cấp bậc hàm.... Vui lòng liên hệ quản trị viên",
-  //     });
-  //   }
-  // },
-  // getChucvus: async (req, res)=> {
-  //   try {
-  //     let data = await Chucvus.find().sort({thutu: 1});
-  //     res.status(200).json(data)
-  //   } catch (error) {
-  //     console.log("lỗi: ", error.message);
-  //     res.status(401).json({
-  //       status: "failed",
-  //       message: "Có lỗi xảy ra khi lấy dữ liệu chức vụ.... Vui lòng liên hệ quản trị viên",
-  //     });
-  //   }
-  // },
-  // getHesoluongs: async (req, res)=> {
-  //   try {
-  //     let data = await Hesoluongs.find().sort({thutu: 1});
-  //     res.status(200).json(data)
-  //   } catch (error) {
-  //     console.log("lỗi: ", error.message);
-  //     res.status(401).json({
-  //       status: "failed",
-  //       message: "Có lỗi xảy ra khi lấy dữ liệu hệ số lương.... Vui lòng liên hệ quản trị viên",
-  //     });
-  //   }
-  // },
-  // getAllDoi: async (req, res) => {
-  //   try {
-  //     let data = await Dois.find().sort({donviString: 1}).populate('donvi')
-  //     res.status(200).json(data)
-  //   } catch (error) {
-  //     console.log("lỗi: ", error.message);
-  //     res.status(401).json({
-  //       status: "failed",
-  //       message: error.message,
-  //     });
-  //   }
-  // },
+  getBacHam:  async (req, res) => {
+    try {
+      let data = await BacHams.find().sort({thutu: 1});
+      res.status(200).json(data)
+    } catch (error) {
+      console.log("lỗi: ", error.message);
+      res.status(401).json({
+        status: "failed",
+        message: "Có lỗi xảy ra khi lấy dữ liệu cấp bậc hàm.... Vui lòng liên hệ quản trị viên",
+      });
+    }
+  },
+  getChucvus: async (req, res)=> {
+    try {
+      let data = await Chucvus.find().sort({thutu: 1});
+      res.status(200).json(data)
+    } catch (error) {
+      console.log("lỗi: ", error.message);
+      res.status(401).json({
+        status: "failed",
+        message: "Có lỗi xảy ra khi lấy dữ liệu chức vụ.... Vui lòng liên hệ quản trị viên",
+      });
+    }
+  },
+  getHesoluongs: async (req, res)=> {
+    try {
+      let data = await Hesoluongs.find().sort({thutu: 1});
+      res.status(200).json(data)
+    } catch (error) {
+      console.log("lỗi: ", error.message);
+      res.status(401).json({
+        status: "failed",
+        message: "Có lỗi xảy ra khi lấy dữ liệu hệ số lương.... Vui lòng liên hệ quản trị viên",
+      });
+    }
+  },
+  getAllDoi: async (req, res) => {
+    try {
+      let data = await Dois.find().sort({donviString: 1}).populate('donvi')
+      res.status(200).json(data)
+    } catch (error) {
+      console.log("lỗi: ", error.message);
+      res.status(401).json({
+        status: "failed",
+        message: error.message,
+      });
+    }
+  },
 
   //thitracnghiem
   getAllMonthi: async (req,res) => {

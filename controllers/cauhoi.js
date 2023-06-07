@@ -9,7 +9,7 @@ module.exports = {
     let id = req.params.id; // id môn thi
     try {
       let items = await Cauhois.find({
-        question: { $regex: question, $options: "i" }, 
+        question: { $regex: question, $options: "$i" }, 
         monthi: id
       }).sort({createdAt: -1})
 
@@ -50,7 +50,7 @@ module.exports = {
       await newItem.save();
 
       let items = await Cauhois.find({
-        question: { $regex: questionParam, $options: "i" }, 
+        question: { $regex: questionParam, $options: "$i" }, 
         monthi
       }).sort({createdAt: -1})
 
@@ -91,7 +91,7 @@ module.exports = {
       });
 
       let items = await Cauhois.find({
-        question: { $regex: questionParam, $options: "i" }, 
+        question: { $regex: questionParam, $options: "$i" }, 
         monthi
       }).sort({createdAt: -1})
 
@@ -123,7 +123,7 @@ module.exports = {
 
       await Cauhois.findByIdAndDelete(id);
       let items = await Cauhois.find({
-        question: { $regex: question, $options: "i" }, 
+        question: { $regex: question, $options: "$i" }, 
         monthi
       }).sort({createdAt: -1})
       res.status(200).json({ message: "Xóa thành công", items });
