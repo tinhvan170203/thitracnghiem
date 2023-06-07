@@ -113,12 +113,12 @@ module.exports = {
       );
       // console.log(quantrinhomdonvi.includes(donvi))
       // let items = await Canbos.find({
-      //   hoten: {$regex: hoten, $options: "$i" },
-      //   sohieuCAND: {$regex: sohieuCAND, $options: "$i" },
-      //   CCCD: {$regex: CCCD, $options: "$i" },
+      //   hoten: {$regex: hoten, $options: "i" },
+      //   sohieuCAND: {$regex: sohieuCAND, $options: "i" },
+      //   CCCD: {$regex: CCCD, $options: "i" },
       //    $and: [
       //       {"donvi.donviString": {$in: quantrinhomdonvi }},
-      //       {"donvi.donviString": {$regex: donvi, $options: "$i" }}
+      //       {"donvi.donviString": {$regex: donvi, $options: "i" }}
       //     ]
       // });
       let items = await Canbos.aggregate([
