@@ -3,6 +3,7 @@ const Cuocthis = require("../models/Cuocthi");
 const Danhsachthisinhs = require("../models/DanhSachThiSinh");
 const LichsuThis = require("../models/LichsuThi");
 const Monthis = require("../models/Monthi");
+const Users = require("../models/User");
 
 module.exports = {
   //controller monthi
@@ -108,7 +109,7 @@ module.exports = {
 
       // console.log(checkedCauhoi !== null)
       if(checkedCauhoi !== null){
-        const error = new Error('Lỗi do có câu hỏi thuộc môn thi');
+        const error = new Error('Lỗi do có câu hỏi thuộc môn thi bạn muốn xóa');
         error.status = 401;
         throw error;
       };
@@ -120,10 +121,14 @@ module.exports = {
 
       // console.log(checkedCauhoi !== null)
       if(checkedCuocthi !== null){
-        const error = new Error('Lỗi do có cuoc thi thuộc môn thi');
+        const error = new Error('Lỗi do có dữ liệu cuộc thi thuộc môn thi bạn muốn xóa');
         error.status = 401;
         throw error;
       };
+
+      let user = await Users.findById(req.user._id);
+      user.quantrinhomdonvi = user.quantrinhomdonvi.filter(i=> i._id.toString() !== id);
+      await user.save();
 
       await Monthis.findByIdAndDelete(id);
 
@@ -156,7 +161,7 @@ module.exports = {
         .status(401)
         .json({
           status: "failed",
-          message: "Thao tác xóa thất bại do có câu hỏi, cuộc thi đang thuộc môn thi người dùng vừa xóa trong hệ thống.",
+          message: error.message,
         });
     }
   },

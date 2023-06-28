@@ -8,6 +8,7 @@ const danhsachthisinhSchema = new Schema({
   },
   namsinh: String,
   sbd: String,
+  sohieuCAND: String,
   capbac: String,
   chucvu: String,
   donvi: {

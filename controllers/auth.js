@@ -182,7 +182,7 @@ module.exports = {
   },
   changePassword: async (req, res) => {
     let {tentaikhoan, matkhau, matkhaumoi} = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     try {
       let user = await Users.findOne({tentaikhoan,matkhau});
       if(!user){

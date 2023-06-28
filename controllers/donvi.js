@@ -1,5 +1,4 @@
 const Danhsachthisinhs = require("../models/DanhSachThiSinh");
-const Dois = require("../models/Doi");
 const Donvis = require("../models/Donvi");
 
 module.exports = {
@@ -11,14 +10,14 @@ module.exports = {
 
     try {
       let donvisDb = await Donvis.find({
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendonvi: { $regex: tendonvi, $options: "i" },
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendonvi: { $regex: tendonvi, $options: "$i" },
       }).sort({ thutu: 1 });
 
       let total = Math.ceil(donvisDb.length / perPage);
       let donvis = await Donvis.find({
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendonvi: { $regex: tendonvi, $options: "i" },
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendonvi: { $regex: tendonvi, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -30,7 +29,6 @@ module.exports = {
         .status(401)
         .json({
           status: "failed",
-          // message: "Có lỗi xảy ra khi lấy dữ liệu đơn vị",
           message: error.message,
         });
     }
@@ -51,16 +49,16 @@ module.exports = {
       await newItem.save();
       let donvisDb = await Donvis.find(
         {
-          kyhieu: { $regex: kyhieuParam, $options: "i" },
-          tendonvi: { $regex: tendonviParam, $options: "i" },
+          kyhieu: { $regex: kyhieuParam, $options: "$i" },
+          tendonvi: { $regex: tendonviParam, $options: "$i" },
         }
       ).sort({ thutu: 1 });
 
       let total = Math.ceil(donvisDb.length / perPage);
       let donvis = await Donvis.find(
         {
-          kyhieu: { $regex: kyhieuParam, $options: "i" },
-          tendonvi: { $regex: tendonviParam, $options: "i" },
+          kyhieu: { $regex: kyhieuParam, $options: "$i" },
+          tendonvi: { $regex: tendonviParam, $options: "$i" },
         }
       )
         .sort({ thutu: 1 })
@@ -99,8 +97,8 @@ module.exports = {
       });
       let donvis = await Donvis.find(
         {
-          kyhieu: { $regex: kyhieuParam, $options: "i" },
-          tendonvi: { $regex: tendonviParam, $options: "i" },
+          kyhieu: { $regex: kyhieuParam, $options: "$i" },
+          tendonvi: { $regex: tendonviParam, $options: "$i" },
         }
       )
         .sort({ thutu: 1 })
@@ -140,14 +138,14 @@ module.exports = {
 
       await Donvis.findByIdAndDelete(id);
       let donvisDb = await Donvis.find({
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendonvi: { $regex: tendonvi, $options: "i" },
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendonvi: { $regex: tendonvi, $options: "$i" },
       }).sort({ thutu: 1 });
 
       let total = Math.ceil(donvisDb.length / perPage);
       let donvis = await Donvis.find({
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendonvi: { $regex: tendonvi, $options: "i" },
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendonvi: { $regex: tendonvi, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -165,7 +163,7 @@ module.exports = {
       console.log("lỗi: ", error.message);
       res
         .status(401)
-        .json({ status: "failed", message: "Có lỗi xảy ra khi xóa đơn vị" });
+        .json({ status: "failed", message: error.message});
     }
   },
 
@@ -179,26 +177,26 @@ module.exports = {
 
     try {
       let donvisDb = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendoi: { $regex: tendoi, $options: "i" },
-        donviString: { $regex: donvi, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendoi: { $regex: tendoi, $options: "$i" },
+        donviString: { $regex: donvi, $options: "$i" },
       }).sort({ thutu: 1 });
 
       let banghi = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendoi: { $regex: tendoi, $options: "i" },
-        donviString: { $regex: donvi, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendoi: { $regex: tendoi, $options: "$i" },
+        donviString: { $regex: donvi, $options: "$i" },
       });
       let tongbanghi = banghi.length;
 
       let total = Math.ceil(donvisDb.length / perPage);
       let donvis = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendoi: { $regex: tendoi, $options: "i" },
-        donviString: { $regex: donvi, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendoi: { $regex: tendoi, $options: "$i" },
+        donviString: { $regex: donvi, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -235,26 +233,26 @@ module.exports = {
       await newItem.save();
 
       let donvisDb = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieuParam, $options: "i" },
-        tendoi: { $regex: tendoiParam, $options: "i" },
-        donviString: { $regex: donviParam, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieuParam, $options: "$i" },
+        tendoi: { $regex: tendoiParam, $options: "$i" },
+        donviString: { $regex: donviParam, $options: "$i" },
       }).sort({ thutu: 1 });
 
       let banghi = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendoi: { $regex: tendoi, $options: "i" },
-        donviString: { $regex: donvi, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendoi: { $regex: tendoi, $options: "$i" },
+        donviString: { $regex: donvi, $options: "$i" },
       });
       let tongbanghi = banghi.length;
 
       let total = Math.ceil(donvisDb.length / perPage);
       let donvis = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieuParam, $options: "i" },
-        tendoi: { $regex: tendoiParam, $options: "i" },
-        donviString: { $regex: donviParam, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieuParam, $options: "$i" },
+        tendoi: { $regex: tendoiParam, $options: "$i" },
+        donviString: { $regex: donviParam, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -289,26 +287,26 @@ module.exports = {
     try {
       await Dois.findByIdAndDelete(id);
       let donvisDb = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendoi: { $regex: tendoi, $options: "i" },
-        donviString: { $regex: donvi, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendoi: { $regex: tendoi, $options: "$i" },
+        donviString: { $regex: donvi, $options: "$i" },
       }).sort({ thutu: 1 });
 
       let banghi = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendoi: { $regex: tendoi, $options: "i" },
-        donviString: { $regex: donvi, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendoi: { $regex: tendoi, $options: "$i" },
+        donviString: { $regex: donvi, $options: "$i" },
       });
       let tongbanghi = banghi.length;
 
       let total = Math.ceil(donvisDb.length / perPage);
       let donvis = await Dois.find({
-        donvi: {in: quantrinhomdonvi},
-        kyhieu: { $regex: kyhieu, $options: "i" },
-        tendoi: { $regex: tendoi, $options: "i" },
-        donviString: { $regex: donvi, $options: "i" },
+        donvi: {$in: quantrinhomdonvi},
+        kyhieu: { $regex: kyhieu, $options: "$i" },
+        tendoi: { $regex: tendoi, $options: "$i" },
+        donviString: { $regex: donvi, $options: "$i" },
       })
         .sort({ thutu: 1 })
         .skip((page - 1) * perPage)
@@ -350,10 +348,10 @@ module.exports = {
       });
       let donvis = await Dois.find(
         {
-          donvi: {in: quantrinhomdonvi},
-          kyhieu: { $regex: kyhieuParam, $options: "i" },
-          tendoi: { $regex: tendoiParam, $options: "i" },
-          donviString: { $regex: donviParam, $options: "i" },
+          donvi: {$in: quantrinhomdonvi},
+          kyhieu: { $regex: kyhieuParam, $options: "$i" },
+          tendoi: { $regex: tendoiParam, $options: "$i" },
+          donviString: { $regex: donviParam, $options: "$i" },
         }
       )
         .sort({ thutu: 1 })
