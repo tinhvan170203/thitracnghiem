@@ -1,0 +1,1 @@
+import{ao as t}from"./index-2d1dc0c1.js";const r=t.create({baseURL:"https://thitracnghiem.onrender.com/",headers:{},withCredentials:!0});r.interceptors.request.use(function(e){return e},function(e){return Promise.reject(e)});r.interceptors.response.use(function(e){return e},function(e){return Promise.reject(e)});export{r as a};
